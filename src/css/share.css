@@ -1,0 +1,43 @@
+.dot span,
+.dot {
+  font-weight: 800;
+  font-size: 16px;
+  background-color: beige;
+}
+
+.main {
+}
+
+#map {
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  display: inline-block;
+  z-index: 1;
+  width: 90%;
+  height: 700px;
+}
+
+.search {
+  top: 16%;
+  left: 5.5%;
+
+  position: absolute;
+  display: inline-block;
+  z-index: 2;
+}
+
+.search input {
+  width: 180px;
+  height: 25px;
+  background-color: transparent;
+  font-weight: 600;
+  border: none;
+  border-bottom: 1.2px solid black;
+  outline: none;
+}
+
+.search input::placeholder {
+  font-size: 15px;
+  text-align: center;
+}
