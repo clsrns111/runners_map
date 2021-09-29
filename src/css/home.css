@@ -1,0 +1,35 @@
+.main_title {
+  text-align: center;
+  margin: 150px 0px;
+}
+
+.ment_wrapper {
+  margin-top: 200px;
+}
+
+.main_title h1 {
+  margin-top: 0;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: 40px;
+}
+
+.ment {
+  position: relative;
+  font-size: 50px;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.map {
+  animation: fadeIn 2s ease-in;
+}

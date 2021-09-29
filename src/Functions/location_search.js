@@ -1,6 +1,5 @@
 /*global kakao*/
 function location_search(e, map, search_word) {
-  console.log(e);
   let geocoder = new kakao.maps.services.Geocoder();
 
   // 주소로 좌표를 검색합니다

@@ -8,7 +8,10 @@ function App() {
     <div className="App">
       <Router>
         <Link to="/">Home</Link>
+        <Link to="/">회원가입</Link>
+        <Link to="/login">로그인</Link>
         <Link to="/share">코스 공유하기</Link>
+        <Link to="/search">코스 찾기</Link>
         <Switch>
           <Route exact path="/">
             <Home />

@@ -23,7 +23,7 @@ function Share() {
     let event;
     // 지도에 클릭 이벤트를 등록합니다
     // 지도를 클릭하면 선 그리기가 시작됩니다 그려진 선이 있으면 지우고 다시 그립니다
-    location_search(event, map, search_word);
+    location_search(map, search_word);
     kakao.maps.event.addListener(map, "click", function (mouseEvent) {
       // 마우스로 클릭한 위치입니다
       var clickPosition = mouseEvent.latLng;
@@ -122,10 +122,10 @@ function Share() {
         // 선을 구성하는 좌표의 개수가 2개 이상이면
         if (path.length > 1) {
           // 마지막 클릭 지점에 대한 거리 정보 커스텀 오버레이를 지웁니다
-          if (dots[dots.length - 1].distance) {
+          /*  if (dots[dots.length - 1].distance) {
             dots[dots.length - 1].distance.setMap(null);
             dots[dots.length - 1].distance = null;
-          }
+          } */
 
           var distance = Math.round(clickLine.getLength()), // 선의 총 거리를 계산합니다
             content = getTimeHTML(distance); // 커스텀오버레이에 추가될 내용입니다
@@ -260,35 +260,30 @@ function Share() {
     // HTML Content를 만들어 리턴하는 함수입니다
     function getTimeHTML(distance) {
       // 달리기 시속은 평균 8km/h 기준
-      var walkkTime = (distance / 67) | 0;
-      var walkHour = "",
-        walkMin = "";
+      console.log(distance);
+      const walkkTime = (distance / 7000) * 60;
+      console.log(walkkTime);
+      let walkHour = "";
+      let walkMin = "";
+
+      const k_m = distance >= 1000 ? "km" : "m";
 
       // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
       if (walkkTime > 60) {
-        walkHour =
-          '<span class="number">' + Math.floor(walkkTime / 60) + "</span>시간 ";
+        walkHour += Math.floor(walkkTime / 60) + "시간";
       }
-      walkMin = '<span class="number">' + (walkkTime % 60) + "</span>분";
+
+      walkMin = Math.floor(walkkTime % 60) + "분";
 
       // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
-      var content = '<ul class="dotOverlay distanceInfo">';
-      content += "    <li>";
-      content +=
-        '        <span class="label">총 예상거리</span><span class="number">' +
-        distance +
-        "</span>m";
+      const share_distance = document.getElementById("share_distance");
+      const share_time = document.getElementById("share_time");
 
-      content += "    </li>";
-      content += "    <li>";
-      content +=
-        '        <span class="label">예상 소요시간</span>' + walkHour + walkMin;
-      content += "    </li>";
-      content += "    <li>";
-      content += "    </li>";
-      content += "</ul>";
-
-      return content;
+      if (distance >= 1000) {
+        distance = (distance / 1000).toFixed(2);
+      }
+      share_distance.textContent = distance + k_m;
+      share_time.textContent = walkHour + walkMin;
     }
   }, []);
 
@@ -296,11 +291,7 @@ function Share() {
     <>
       <div className="main">
         <div className="search">
-          <form
-            onSubmit={(e) => {
-              event = e;
-            }}
-          >
+          <form onSubmit={(e) => {}}>
             <input
               onChange={(e) => setsearch_word(e.target.value)}
               value={search_word}
@@ -316,14 +307,18 @@ function Share() {
           display: "block",
         }}
       >
-        <div>
-          <h3>총 거리:</h3>
-          <span id="share_distance">0</span>
-        </div>
-        <div>
-          <h3>러닝 예상시간:</h3>
-          <span id="share_time">0</span>
-          <small>(8km/h 기준)</small>
+        <div className="info">
+          <div>
+            <h3>
+              예상 거리: <span id="share_distance">0</span>
+            </h3>
+          </div>
+          <div>
+            <h3>
+              예상 소요시간: <span id="share_time">0</span>
+              <small>(7km/h 기준)</small>
+            </h3>
+          </div>
         </div>
       </div>
     </>
